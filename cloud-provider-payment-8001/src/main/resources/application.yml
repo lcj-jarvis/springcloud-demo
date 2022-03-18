@@ -1,0 +1,39 @@
+# 服务的端口号
+server:
+  port: 8001
+
+spring:
+  application:
+    name: cloud-payment-service  # 服务名称
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver              # mysql驱动包 com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/cloud01?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  type-aliases-package: com.mrlu.springcloud.entities    # 所有Entity别名类所在包
+
+eureka:
+  client:
+    # 是否从Eureka Server 抓取已有的注册信息，默认为true。单节点无所谓，集群必须设置为true才能配合ribbon使用负载均衡
+    fetch-registry: true
+    # 表示是否将自己注册进Eureka Server，默认是true
+    register-with-eureka: true
+    # 设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址
+    service-url:
+      # 集群版
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
+      # 单击版
+      #defaultZone: http://localhost:7001/eureka/
+  instance:
+    # 注册中心隐藏主机名，和显示ip和端口号
+    instance-id: payment-8001
+    prefer-ip-address: true
+    # 以下两个配置分别表示心跳检测时间和续约时间。开发时设置小些，保证服务关闭后注册中心能及时剔除
+    # Eureka客户端向服务端发送心跳的时间间隔，单位是秒，默认30s
+    #lease-renewal-interval-in-seconds: 1
+    # Eureka服务端在收到最后一次心跳后等待时间上限，单位是秒（默认是90s），超时将剔除服务
+    #lease-expiration-duration-in-seconds: 2

@@ -1,0 +1,24 @@
+server:
+  port: 81
+
+spring:
+  application:
+    name: cloud-alibaba-nacos-order-consumer
+  cloud:
+    nacos:
+      discovery:
+        # Nacos的地址
+        server-addr: localhost:8848
+        #如果不想使用 Nacos 作为您的服务注册与发现，可以将 spring.cloud.nacos.discovery.enabled 设置为 false。
+        #enabled: false
+
+# 暴露端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+#消费者将要去访问的微服务名称(注册成功进nacos的微服务提供者)
+service-url:
+  nacos-user-service: http://cloud-alibaba-nacos-payment-provider

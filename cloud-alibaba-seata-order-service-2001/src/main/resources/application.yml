@@ -1,0 +1,65 @@
+server:
+  port: 2001
+
+spring:
+  application:
+    name: seata-order-service
+  cloud:
+    alibaba:
+      seata:
+        # 配置事务组名称，如果在seata安装目录下的conf目录下的file.conf文件中的server设置了自定义的事务组名称，
+        # 则这里需要和file.conf文件中指定的自定义事务组名称一致
+        tx-service-group: fsp_tx_group
+    nacos:
+        # nacos的地址
+      discovery:
+        server-addr: 127.0.0.1:8848
+  datasource:
+    # 编写数据库相关连接信息
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.187.129:3306/seata_order
+    username: root
+    password: root
+
+feign:
+  hystrix:
+    enabled: false
+
+seata:
+  enable-auto-data-source-proxy: true
+
+
+#==========和seata安装目录下的conf目录下的file.conf文件中的server设置的自定义的事务组名称的内容一致=======
+  service:
+    vgroup-mapping:
+      fsp_tx_group: default
+#==========和seata安装目录下的conf目录下的file.conf文件中的server设置的自定义的事务组名称的内容一致=======
+
+
+#=========以下的内容相当于seata的registry.conf文件，当然也可以不配，复制registry.conf文件到resources目录下========
+  config:
+    nacos:
+      # 配置registry.conf文件里指定的nacos的命名空间的命名空间ID。如果没有指定，就默认是public的命名空间，可以不用配置
+      namespace: 548c2f72-862b-46d2-856d-403cdb1d6480
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+      server-addr: 127.0.0.1:8848
+# 不用配置type，不然会启动出错
+#    type: nacos
+
+  registry:
+    nacos:
+      application: seata-server
+      cluster: default
+      server-addr: 127.0.0.1:8848
+      namespace: 548c2f72-862b-46d2-856d-403cdb1d6480
+      username: nacos
+      password: nacos
+      group: SEATA_GROUP
+# 不用配置type，不然会启动出错
+#    type: nacos
+#=========以上的内容相当于seata的registry.conf文件，当然也可以不配，复制registry.conf文件到resources目录下=======
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
