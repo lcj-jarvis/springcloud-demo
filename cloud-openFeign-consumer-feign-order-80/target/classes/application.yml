@@ -1,0 +1,38 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: cloud-openFeign-order-service
+
+# 以下是配置相关服务的负载策略
+# 服务提供者的实例名
+#CLOUD-OPENFEIGN-PAYMENT-SERVICE:
+#  ribbon:
+    # 设置负载策略为随机策略
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+# OpenFeign默认支持ribbon，以下是超时控制相关控制
+ribbon:
+  #指的是建立连接需要的时间，适用于网络状况正常的情况下，两端连接所用的时间
+  ReadTimeout: 5000
+  # 指的是建立连接后，从服务器读取到可用资源所用的时间
+  ConnectionTimeout: 5000
+  # 对所有请求都进行重试
+  OkToRetryOnAllOpertions: true
+  # 切换实例的重试次数
+  MaxAutoRetriesNextServer: 2
+  # 对当前实例的重试次数
+  MaxAutoRetries: 1
+
+eureka:
+  client:
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://localhost:7005/eureka/
+
+# 以下是开启Feign的日志打印
+logging:
+  level:
+    #在哪个包下开启日志
+    com.mrlu.springcloud.service: debug

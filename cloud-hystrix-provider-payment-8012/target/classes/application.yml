@@ -1,0 +1,16 @@
+server:
+  port: 8012
+
+spring:
+  application:
+    name: cloud-provider-hystrix-payment
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      #集群模块
+      #defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+      #单机模式
+      defaultZone: http://localhost:7006/eureka

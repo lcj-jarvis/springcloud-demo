@@ -1,0 +1,41 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name:  cloud-config-center #注册进Eureka服务器的微服务名
+  cloud:
+    # 前提是要IDE整合了Git，设置了git的账号和密码
+    # 以下的配置中心服务端的配置,表示去uri所在的git仓库的springcloud-config目录下获取master分支的内容
+    config:
+      server:
+        git:
+          # 将git@github.com:lcj-jarvis/springcloud-config.git改为https访问解决授权问题
+          uri: https://github.com/lcj-jarvis/springcloud-config.git #GitHub上面的git仓库名字
+          ####搜索目录
+          search-paths:
+            - springcloud-config
+      ####label表示读取的分支
+      label: master
+
+  #rabbitmq相关配置
+  rabbitmq:
+    virtual-host: /
+    host: 192.168.187.100
+    port: 5672
+    username: root
+    password: root
+
+#服务注册到eureka地址
+eureka:
+  client:
+    service-url:
+      # 注册中心
+      defaultZone: http://localhost:7004/eureka
+
+##rabbitmq相关配置,暴露bus刷新配置的端点
+management:
+  endpoints: #暴露bus刷新配置的端点
+    web:
+      exposure:
+        include: 'bus-refresh'

@@ -1,0 +1,36 @@
+server:
+  port: 9007
+
+spring:
+  application:
+    name: cloud-alibaba-stream-rocketmq-consumer-9007
+  cloud:
+    nacos:
+      discovery:
+        #配置Nacos地址
+        server-addr: 39.108.105.55:8848
+    stream:
+      rocketmq:
+        binder:
+          # 设置rocketmq nameserver地址
+          name-server: 39.108.105.55:9876
+        bindings:
+          input1:
+            consumer:
+              orderly: true
+
+      bindings:
+        #input1: 订阅 topic 为 test-topic 的消息，顺序消费所有消息(顺序消费的前提是所有消息都在一个 MessageQueue 中)
+        input1:
+          # 设置topic
+          destination: test-topic
+          content-type: application/json
+          group: test-group1
+
+
+# 暴露端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

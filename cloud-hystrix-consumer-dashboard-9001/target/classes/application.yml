@@ -1,0 +1,11 @@
+server:
+  port: 9001
+
+# 以下是配置Hystrix的监控
+hystrix:
+  dashboard:
+    # 监控localhost
+    #proxy-stream-allow-list: "localhost"
+    # 监控所有的ip
+    proxy-stream-allow-list: "*"
+

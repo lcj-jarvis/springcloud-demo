@@ -1,0 +1,29 @@
+server:
+  port: 9006
+
+# 更多配置参考：https://github.com/alibaba/spring-cloud-alibaba/wiki/RocketMQ
+spring:
+  application:
+    name: cloud-alibaba-stream-rocketmq-producer-9006
+  cloud:
+    nacos:
+      discovery:
+        #配置Nacos地址
+        server-addr: 39.108.105.55:8848
+    stream:
+      rocketmq:
+        binder:
+          # 设置rocketmq nameserver地址
+          name-server: 39.108.105.55:9876
+      bindings:
+        output:
+          # 设置topic
+          destination: test-topic
+          content-type: application/json
+
+# 暴露端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

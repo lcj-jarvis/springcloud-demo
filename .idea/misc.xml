@@ -16,6 +16,7 @@
         <option value="$PROJECT_DIR$/cloud-openFeign-provider-payment-8011/pom.xml" />
         <option value="$PROJECT_DIR$/cloud-hystrix-eureka-server-7006/pom.xml" />
         <option value="$PROJECT_DIR$/cloud-alibaba-nacos-config-client-3377/pom.xml" />
+        <option value="$PROJECT_DIR$/cloud-alibaba-stream-rocketmq-producer-9006/pom.xml" />
       </list>
     </option>
   </component>

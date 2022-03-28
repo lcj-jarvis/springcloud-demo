@@ -1,0 +1,49 @@
+server:
+  port: 2002
+
+spring:
+  application:
+    name: seata-storage-service
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: fsp_tx_group
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.187.129:3306/seata_storage
+    username: root
+    password: root
+
+logging:
+  level:
+    io:
+      seata: info
+
+seata:
+  enable-auto-data-source-proxy: true
+  service:
+    vgroup-mapping:
+      fsp_tx_group: default
+  config:
+    nacos:
+      # 配置registry.conf文件里指定的nacos的命名空间的命名空间ID。如果没有指定，就默认是public的命名空间，可以不用配置
+      namespace: 548c2f72-862b-46d2-856d-403cdb1d6480
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+      server-addr: 127.0.0.1:8848
+  registry:
+    nacos:
+      application: seata-server
+      cluster: default
+      server-addr: 127.0.0.1:8848
+      namespace: 548c2f72-862b-46d2-856d-403cdb1d6480
+      username: nacos
+      password: nacos
+      group: SEATA_GROUP
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
